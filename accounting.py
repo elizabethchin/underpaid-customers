@@ -1,24 +1,25 @@
 melon_cost = 1.00
 
-customer_name = "Joe"
-customer_melons = 5
-customer_paid = 5.00
-
-file = customer-orders.txt
-
 def accounting(file):
     """Calculates discrepncies in customer bill"""
 
-    the_file = open(file)
-    for line in file:
+    the_file = open(file) #opens file
+    for line in the_file:
         line = line.rstrip()
         words = line.split("|")
 
-        customer_name, customer_melons, customer_paid = words
-     
-    customer_expected = words[0] * melon_cost
-    if customer_expected != words[2]:
-        print(f"{words[0]} paid ${words[2]:.2f},",
-            f"expected ${customer_expected:.2f}"
-            )
+        customer_name = words[1]
+        melons_purchased = float(words[2])
+        amt_paid = float(words[3])
+
+
     the_file.close()
+
+    customer_expected = melons_purchased * melon_cost
+    if customer_expected != amt_paid:
+        print(f"{customer_name} paid ${amt_paid:.2f}, expected", 
+        f"${customer_expected:.2f}")
+    
+
+print(accounting("customer-orders.txt"))
+
